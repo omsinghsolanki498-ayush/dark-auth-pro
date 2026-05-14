@@ -15,7 +15,7 @@ connectDB(); // Connect backend with MongoDB database
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://dark-auth-pro-xyz.vercel.app"
+        "https://dark-auth-pro.vercel.app"
     ],
     credentials: true
 }));
