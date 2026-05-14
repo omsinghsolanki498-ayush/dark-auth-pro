@@ -25,7 +25,11 @@ app.use(cookieParser()); // Middleware to read cookies
 app.use(express.urlencoded({ extended: true }));
 
 // All auth routes start with /api/auth
-app.use("/api/auth", require("./routes/authroutes")); 
+app.use("/api/auth", require("./routes/authroutes"));
+
+app.get("/", (req, res) => {
+  res.send("Backend Running Successfully");
+});
 
 app.listen(3002, () => {
     console.log("Server running");
