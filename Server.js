@@ -6,18 +6,19 @@ const express = require("express"); // Import Express framework
 
 const cors = require("cors"); // Import CORS middleware
 
-const connectDB = require("./config/db"); 
+const connectDB = require("./config/db");
 
 const app = express();
 
 connectDB(); // Connect backend with MongoDB database
 
-app.use(cors(
-    {
-        origin: "http://localhost:5173",
-        credentials: true
-    }
-));
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://dark-auth-pro-xyz.vercel.app"
+    ],
+    credentials: true
+}));
 
 app.use(express.json()); // Middleware to accept JSON data from frontend
 app.use(cookieParser()); // Middleware to read cookies
@@ -28,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", require("./routes/authroutes"));
 
 app.get("/", (req, res) => {
-  res.send("Backend Running Successfully");
+    res.send("Backend Running Successfully");
 });
 
 app.listen(3002, () => {
