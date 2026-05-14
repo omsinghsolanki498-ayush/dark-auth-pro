@@ -12,12 +12,11 @@ const Dashboard = () => {
 
     const fetchDashboard = async () => {
 
-      try {
-
+       try {
         const token = localStorage.getItem("token");
 
         const res = await axios.get(
-          "http://localhost:3002/api/auth/dashboard",
+          `${import.meta.env.VITE_API_URL}/auth/dashboard`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

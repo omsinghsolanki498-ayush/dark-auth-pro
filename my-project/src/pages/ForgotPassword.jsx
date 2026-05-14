@@ -13,10 +13,9 @@ const ForgotPassword = () => {
   // SEND OTP
   const sendOTP = async () => {
 
-    try {
-
+     try {
       const res = await axios.post(
-        "http://localhost:3002/api/auth/forgot-password",
+        `${import.meta.env.VITE_API_URL}/auth/forgot-password`,
         { email }
       );
 
@@ -32,10 +31,9 @@ const ForgotPassword = () => {
   // RESET PASSWORD
   const resetPassword = async () => {
 
-    try {
-
+     try {
       const res = await axios.post(
-        "http://localhost:3002/api/auth/reset-password",
+        `${import.meta.env.VITE_API_URL}/auth/reset-password`,
         {
           email,
           otp,

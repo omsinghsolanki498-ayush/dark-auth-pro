@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,6 +10,8 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,30 +21,27 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
+    setLoading(true);
 
     try {
-
       const res = await axios.post(
-        "http://localhost:3002/api/auth/register",
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         formData
       );
 
       alert(res.data.message);
 
       navigate("/login");
-
     } catch (error) {
-
       console.log(error);
-
       alert(error.response?.data?.message || "Register Failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-  <>
     <div className="min-h-screen bg-black flex flex-col justify-between">
 
       {/* Main Section */}
@@ -60,6 +58,7 @@ const Register = () => {
             placeholder="Name"
             name="name"
             onChange={handleChange}
+            required
           />
 
           <input
@@ -67,6 +66,7 @@ const Register = () => {
             placeholder="Email"
             name="email"
             onChange={handleChange}
+            required
           />
 
           <input
@@ -74,19 +74,21 @@ const Register = () => {
             placeholder="Password"
             name="password"
             onChange={handleChange}
+            required
           />
 
           <button
+            type="submit"
+            disabled={loading}
             className="px-4 py-2 bg-blue-700 text-white rounded-lg 
             hover:bg-blue-600 active:scale-95 transition duration-200"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
 
           <div className="flex justify-center mt-4">
             <p className="text-sm text-gray-500">
-              Already have an account?{" "}
-
+              Already have an account?
               <Link
                 to="/login"
                 className="ml-2 text-blue-600 font-semibold hover:text-blue-400"
@@ -119,10 +121,7 @@ const Register = () => {
       </footer>
 
     </div>
-  </>
   );
 };
 
 export default Register;
-
-
