@@ -5,15 +5,12 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        // user: process.env.EMAIL,
-        // pass: process.env.EMAIL_PASSWORD,
-
-        user:"darkauthpro@gmail.com",
-        pass:"vfxcpyojgmgmaito"
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
     },
 });
 
-// ✅ Verify transporter on startup
+
 transporter.verify((error, success) => {
     if (error) {
         console.log("SMTP CONNECTION ERROR:", error);
@@ -25,7 +22,7 @@ transporter.verify((error, success) => {
 const sendEmail = async (email, otp) => {
     try {
         const info = await transporter.sendMail({
-            from: `"Dark Auth Pro" <${"darkauthpro@gmail.com"}>`,  // process.env.EMAIL
+            from: `"Dark Auth Pro" <${process.env.EMAIL}>`,
             to: email,
             subject: "Password Reset OTP",
             html: `
