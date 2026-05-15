@@ -122,6 +122,51 @@ exports.login = async (req, res) => {
 
 // SEND OTP
 
+// exports.sendOTP = async (req, res) => {
+//   try {
+//     const { email } = req.body;
+
+//     const user = await userModel.findOne({ email });
+
+//     if (!user) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User Not Found",
+//       });
+//     }
+
+//     const otp = otpGenerator.generate(6, {
+//       digits: true,
+//       upperCaseAlphabets: false,
+//       lowerCaseAlphabets: false,
+//       specialChars: false,
+//     });
+
+//     user.otp = otp;
+
+//     user.otpExpire = Date.now() + 5 * 60 * 1000;
+
+//     await user.save();
+
+//     await sendEmail(email, otp);
+
+//     res.status(200).json({
+//       success: true,
+//       message: "OTP Sent Successfully",
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+
+
+
+
+
 exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
@@ -143,25 +188,34 @@ exports.sendOTP = async (req, res) => {
     });
 
     user.otp = otp;
-
     user.otpExpire = Date.now() + 5 * 60 * 1000;
 
     await user.save();
 
-    await sendEmail(email, otp);
+    // 🔥 SAFE EMAIL SEND (IMPORTANT FIX)
+    try {
+      await sendEmail(email, otp);
+    } catch (mailError) {
+      console.log("Email error:", mailError.message);
+      return res.status(500).json({
+        success: false,
+        message: "OTP generated but email failed",
+      });
+    }
 
     res.status(200).json({
       success: true,
       message: "OTP Sent Successfully",
     });
+
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: error.message,
     });
   }
 };
-
 
 // RESET PASSWORD
 
