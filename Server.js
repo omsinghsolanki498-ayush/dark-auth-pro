@@ -106,7 +106,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// 🔥 CORS MUST BE FIRST (IMPORTANT)
+// CORS
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -116,8 +116,8 @@ app.use(cors({
   credentials: true
 }));
 
-// 🔥 Handle preflight
-app.options("*", cors());
+// FIXED PREFLIGHT
+app.options("/*splat", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

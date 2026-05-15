@@ -192,7 +192,7 @@ exports.sendOTP = async (req, res) => {
 
     await user.save();
 
-    // 🔥 SAFE EMAIL SEND (IMPORTANT FIX)
+    // SAFE EMAIL SEND (IMPORTANT FIX)
     try {
       await sendEmail(email, otp);
     } catch (mailError) {
