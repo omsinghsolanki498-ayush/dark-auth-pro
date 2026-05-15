@@ -42,43 +42,83 @@
 
 
 
+// require("dotenv").config();
+
+// const express = require("express");
+// const cors = require("cors");
+// const cookieParser = require("cookie-parser");
+
+// const connectDB = require("./config/db");
+
+// const app = express();
+
+// // DB connect
+// connectDB();
+
+// // CORS FIX (PRODUCTION READY)
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://dark-auth-pro.vercel.app"
+// ];
+
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     // allow requests with no origin (like Postman)
+//     if (!origin) return callback(null, true);
+
+//     if (allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true
+// }));
+
+// // 🔥 Handle preflight requests
+// app.options("*", cors());
+
+// // Middlewares
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(cookieParser());
+
+// // Routes
+// app.use("/api/auth", require("./routes/authroutes"));
+
+// // Test route
+// app.get("/", (req, res) => {
+//   res.send("Backend Running Successfully");
+// });
+
+// // Server start
+// app.listen(process.env.PORT || 3002, () => {
+//   console.log("Server running on port 3002");
+// });
+
+
+
 require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const connectDB = require("./config/db");
-
 const app = express();
 
-// DB connect
-connectDB();
-
-// CORS FIX (PRODUCTION READY)
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://dark-auth-pro.vercel.app"
-];
-
+// 🔥 CORS MUST BE FIRST (IMPORTANT)
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like Postman)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: [
+    "http://localhost:5173",
+    "https://dark-auth-uylon8rmw-omsinghsolanki498-ayushs-projects.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
 
-// 🔥 Handle preflight requests
+// 🔥 Handle preflight
 app.options("*", cors());
 
-// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -86,12 +126,12 @@ app.use(cookieParser());
 // Routes
 app.use("/api/auth", require("./routes/authroutes"));
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Backend Running Successfully");
 });
 
-// Server start
-app.listen(process.env.PORT || 3002, () => {
-  console.log("Server running on port 3002");
+const PORT = process.env.PORT || 3002;
+
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });
