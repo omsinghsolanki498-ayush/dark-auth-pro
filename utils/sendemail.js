@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
+    service: "gmail",
     port: 587,
     secure: false,
     family: 4,  // ← यह add करो - IPv4 force
