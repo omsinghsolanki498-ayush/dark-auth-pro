@@ -1,13 +1,18 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-    service:"gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    family: 4,  // ← यह add करो - IPv4 force
     auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASSWORD,
     },
+    tls: {
+        rejectUnauthorized: false
+    }
 });
-
 
 transporter.verify((error, success) => {
     if (error) {
