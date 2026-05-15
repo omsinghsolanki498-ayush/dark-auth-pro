@@ -96,7 +96,6 @@
 //   console.log("Server running on port 3002");
 // });
 
-
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -104,18 +103,18 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// CORS - MUST be first
+// CORS
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://dark-auth-pro.vercel.app"  // ✅ correct production URL
+    "https://dark-auth-pro.vercel.app"  // ✅ correct URL
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
 
-// ✅ Fixed preflight handler
-app.options("*", cors());
+// ✅ Express 5 compatible preflight
+app.options("/{*splat}", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
