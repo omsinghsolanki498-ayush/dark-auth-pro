@@ -1,28 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
-
 import ProtectedRoute from "./Component/ProtectedRoute";
-
 import "./App.css";
-
 function App() {
 
   return (
-
     <BrowserRouter>
-
       <Routes>
-
         {/* Login Page */}
         <Route
           path="/"
           element={<Register />}
         />
-
         {/* Login Route */}
         <Route
           path="/login"
@@ -44,11 +36,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
-
     </BrowserRouter>
   );
 }
-
 export default App;

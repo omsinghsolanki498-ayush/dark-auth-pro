@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,11 +20,11 @@ const ForgotPassword = () => {
         { email }
       );
 
-      alert(res.data.message);
+      toast.success(res.data.message);
 
     } catch (error) {
 
-      alert(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || "Something went wrong");
 
     }
   };
@@ -41,20 +42,20 @@ const ForgotPassword = () => {
         }
       );
 
-      alert(res.data.message);
+      toast.success(res.data.message);
 
       navigate("/login");
 
     } catch (error) {
 
-      alert(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || "Something went wrong");
 
     }
   };
 
   return (
     <div className="min-h-screen bg-black flex flex-col justify-between">
-
+     <Toaster position="top-right" reverseOrder={false} />
       {/* Main Section */}
       <div className="container flex justify-center items-center flex-1">
 

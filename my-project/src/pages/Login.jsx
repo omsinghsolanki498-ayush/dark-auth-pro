@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -36,13 +37,13 @@ const Login = () => {
 
       console.log(error);
 
-      alert(error.response?.data?.message || "Login Failed");
+      toast.error(error.response?.data?.message || "Login Failed");
     }
   };
 
   return (
     <div className="min-h-screen bg-black flex flex-col justify-between">
-
+   <Toaster position="top-right" reverseOrder={false} />
       {/* Main Section */}
       <div className="container flex justify-center items-center flex-1">
 

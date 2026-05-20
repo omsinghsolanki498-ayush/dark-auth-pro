@@ -1,6 +1,8 @@
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -30,12 +32,12 @@ const Register = () => {
         formData
       );
 
-      alert(res.data.message);
+     toast.success(res.data.message || "Registration Successful");
 
       navigate("/login");
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.message || "Register Failed");
+      toast.error(error.response?.data?.message || "Register Failed");
     } finally {
       setLoading(false);
     }
@@ -43,7 +45,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-black flex flex-col justify-between">
-
+     <Toaster position="top-right" reverseOrder={false} />
       {/* Main Section */}
       <div className="container flex justify-center items-center flex-1">
 
